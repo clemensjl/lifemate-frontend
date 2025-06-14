@@ -21,7 +21,7 @@ export default function LoginPage() {
       if (user) router.push('/calendar');
     });
     return () => unsubscribe(); // gute Praxis: Event-Listener aufräumen
-  }, []);
+  }, [router, user]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-zinc-900 text-white">
