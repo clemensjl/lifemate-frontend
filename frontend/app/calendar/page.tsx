@@ -10,7 +10,7 @@ import {
   isSameDay,
   parseISO,
 } from 'date-fns';
-import de from 'date-fns/locale/de';
+import { de } from 'date-fns/locale';
 
 import { db } from '@/firebase';
 import {
@@ -62,10 +62,13 @@ export default function SmartKalender() {
 
     const q = query(collection(db, 'termine'), where('uid', '==', user.uid));
     const unsub = onSnapshot(q, (snapshot) => {
-      const items = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...(doc.data() as Termin),
-      }));
+      const items = snapshot.docs.map((doc) => {
+        const data = doc.data() as Omit<Termin, 'id'>;
+        return {
+          id: doc.id,
+          ...data,
+        };
+      });
       setTermine(items);
     });
 
