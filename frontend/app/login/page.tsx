@@ -1,6 +1,5 @@
 'use client';
 
-
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import {
@@ -21,7 +20,7 @@ export default function LoginPage() {
       if (user) router.push('/calendar');
     });
     return () => unsubscribe(); // gute Praxis: Event-Listener aufräumen
-  }, [router, user]);
+  }, [router]); // ✅ "user" entfernt, da undefined
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-zinc-900 text-white">
